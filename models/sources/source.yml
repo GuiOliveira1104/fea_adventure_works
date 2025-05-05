@@ -111,6 +111,9 @@ sources:
         columns:
           - name: BUSINESSENTITYID
             description: Identificador da pessoa ou cliente associado ao endereço de e-mail.
+            tests:
+              - unique
+              - not_null
 
           - name: EMAILADDRESS
             description: Endereço de e-mail completo, como exemplo@dominio.com.
@@ -305,6 +308,8 @@ sources:
 
           - name: PRODUCTID
             description: Identificador do produto associado ao pedido.
+            tests:
+              - not_null
 
           - name: ROWGUID
             description: Identificador global único do detalhe do pedido, utilizado para integrações.
@@ -317,6 +322,8 @@ sources:
 
           - name: SALESORDERID
             description: Identificador único do pedido de venda ao qual o detalhe pertence.
+            tests:
+              - not_null
 
           - name: SPECIALOFFERID
             description: Identificador da oferta especial aplicada ao pedido de venda, se houver.
@@ -336,6 +343,8 @@ sources:
 
           - name: BILLTOADDRESSID
             description: Identificador do endereço de cobrança associado ao pedido.
+            tests:
+              - not_null
 
           - name: COMMENT
             description: Comentários adicionais sobre o pedido de venda.
@@ -351,6 +360,8 @@ sources:
 
           - name: CUSTOMERID
             description: Identificador único do cliente que fez o pedido.
+            tests:
+              - not_null
 
           - name: DUEDATE
             description: Data de vencimento do pedido de venda.
@@ -366,6 +377,8 @@ sources:
 
           - name: ORDERDATE
             description: Data em que o pedido foi feito.
+            tests:
+              - not_null
 
           - name: PURCHASEORDERNUMBER
             description: Número do pedido de compra associado ao pedido de venda.
@@ -411,6 +424,10 @@ sources:
 
       - name: SALESORDERHEADERSALESREASON
         description: Relaciona os motivos de vendas aos pedidos de venda, permitindo identificar a razão pela qual um pedido foi feito.
+        tests:
+          - test_composite_pk:
+              pk_col1: SalesOrderID
+              pk_col2: SalesReasonID
 
         columns:
           - name: MODIFIEDDATE
@@ -418,15 +435,13 @@ sources:
 
           - name: SALESORDERID
             description: Identificador único do pedido de venda ao qual o motivo de venda está associado.
+            tests:
+              - not_null
 
           - name: SALESREASONID
             description: Identificador do motivo de venda, que descreve a razão pela qual o pedido foi realizado.
-
-          - name: SALESORDERID_SALESREASONID
-            description: Chave composta que associa um pedido de venda a um motivo de venda específico.
             tests:
               - not_null
-              - unique
 
       - name: SALESREASON
         description: Contém os motivos de vendas, que são usados para explicar o motivo pelo qual um pedido de venda foi realizado.
