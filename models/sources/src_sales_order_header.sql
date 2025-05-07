@@ -5,6 +5,8 @@ with source as (
         , ORDERDATE
         , STATUS
         , CUSTOMERID
+        , DUEDATE
+        , SHIPDATE
         , CREDITCARDID
         , BILLTOADDRESSID
     from {{ source('RAW_ADVENTURE_WORKS', 'SALESORDERHEADER') }}

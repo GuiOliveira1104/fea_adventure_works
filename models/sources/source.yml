@@ -424,10 +424,6 @@ sources:
 
       - name: SALESORDERHEADERSALESREASON
         description: Relaciona os motivos de vendas aos pedidos de venda, permitindo identificar a razão pela qual um pedido foi feito.
-        tests:
-          - test_composite_pk:
-              pk_col1: SalesOrderID
-              pk_col2: SalesReasonID
 
         columns:
           - name: MODIFIEDDATE

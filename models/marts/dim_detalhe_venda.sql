@@ -1,6 +1,8 @@
+{{ config(materialized='table') }}
+
 select
-    SalesOrderID as id_motivo_da_venda
+    SalesOrderID as IDPedidoVenda
+    , SalesReasonID as IDMotivoVenda
     , SalesReason as motivo
-    , ReasonType as classe_motivo
-    , 1 / count(*) over(partition by SalesOrderID) as distribuicao
+    , ReasonType as tipo_motivo
 from {{ ref("int_sales_reason") }}

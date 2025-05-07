@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 select
     AddressID as id_endereco
     , CountryRegion as pais

@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 select
     ProductID id_produto
     , Name as produto
