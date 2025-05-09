@@ -1,0 +1,515 @@
+version: 2
+
+sources:
+  - name: RAW_ADVENTURE_WORKS
+    database: FEA24_11
+    schema: RAW_ADVENTURE_WORKS
+    tables:
+      - name: ADDRESS
+        description: Endereços utilizados, tanto de clientes como de entrega.
+
+        columns:
+          - name: ADDRESSID
+            description: Identificador do endereço.
+            tests:
+              - not_null
+              - unique
+             
+          - name: ADDRESSLINE1
+            description: Endereço 1.
+             
+          - name: ADDRESSLINE2
+            description: Endereço 2.
+             
+          - name: CITY
+            description: Cidade do endereço.
+             
+          - name: MODIFIEDDATE
+            description: Data da última modificação no endereço.
+             
+          - name: POSTALCODE
+            description: Código postal do endereço (CEP).
+             
+          - name: ROWGUID
+            description: Identificador global único da linha — usado para integração.
+             
+          - name: SPATIALLOCATION
+            description: Dados geográficos do endereço, se aplicável.
+             
+          - name: STATEPROVINCEID
+            description: Chave estrangeira para o estado ou província do endereço.
+             
+      - name: COUNTRYREGION
+        description: Lista de países ou regiões usados em endereços e outras tabelas da base.
+
+        columns:
+          - name: COUNTRYREGIONCODE
+            description: Código único do país ou região, como "US" para Estados Unidos ou "BR" para Brasil.
+            tests:
+              - not_null
+              - unique
+              
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do país ou região.
+
+          - name: NAME
+            description: Nome completo do país ou região, como "United States" ou "Brazil".
+            
+      - name: CREDITCARD
+        description: Informações dos cartões de crédito utilizados pelos clientes nos pedidos.
+
+        columns:
+          - name: CARDNUMBER
+            description: Número do cartão de crédito, geralmente mascarado por segurança.
+
+          - name: CARDTYPE
+            description: Tipo do cartão de crédito, como Visa ou MasterCard.
+
+          - name: CREDITCARDID
+            description: Identificador único do cartão de crédito.
+            tests:
+              - not_null
+              - unique
+
+          - name: EXPMONTH
+            description: Mês de vencimento do cartão.
+
+          - name: EXPYEAR
+            description: Ano de vencimento do cartão.
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do cartão.
+
+      - name: CUSTOMER
+        description: Contém os clientes da empresa, podendo ser pessoas físicas ou jurídicas (lojas).
+
+        columns:
+          - name: CUSTOMERID
+            description: Identificador único do cliente.
+            tests:
+              - not_null
+              - unique
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do cliente.
+
+          - name: PERSONID
+            description: Referência à pessoa associada, caso o cliente seja pessoa física.
+
+          - name: ROWGUID
+            description: Identificador global único do cliente, usado em integrações.
+
+          - name: STOREID
+            description: Referência à loja associada, caso o cliente seja pessoa jurídica.
+
+          - name: TERRITORYID
+            description: Região de vendas à qual o cliente pertence.
+
+      - name: EMAILADDRESS
+        description: Contém os endereços de e-mail associados às pessoas ou clientes na base de dados.
+
+        columns:
+          - name: BUSINESSENTITYID
+            description: Identificador da pessoa ou cliente associado ao endereço de e-mail.
+            tests:
+              - unique
+              - not_null
+
+          - name: EMAILADDRESS
+            description: Endereço de e-mail completo, como exemplo@dominio.com.
+
+          - name: EMAILADDRESSID
+            description: Identificador único do endereço de e-mail.
+            tests:
+              - not_null
+              - unique
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do endereço de e-mail.
+
+          - name: ROWGUID
+            description: Identificador global único do endereço de e-mail, utilizado para integrações.
+
+      - name: PERSON
+        description: Contém informações pessoais de indivíduos, como nome, título e dados demográficos.
+
+        columns:
+          - name: ADDITIONALCONTACTINFO
+            description: Informações adicionais de contato da pessoa, como detalhes extras para comunicação.
+
+          - name: BUSINESSENTITYID
+            description: Identificador único da pessoa.
+            tests:
+              - not_null
+              - unique
+
+          - name: DEMOGRAPHICS
+            description: Dados demográficos da pessoa, como idade, sexo e outras informações estatísticas.
+
+          - name: EMAILPROMOTION
+            description: Indica se a pessoa aceitou receber promoções por e-mail.
+
+          - name: FIRSTNAME
+            description: Primeiro nome da pessoa.
+
+          - name: LASTNAME
+            description: Sobrenome da pessoa.
+
+          - name: MIDDLENAME
+            description: Nome do meio da pessoa, caso exista.
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro da pessoa.
+
+          - name: NAMESTYLE
+            description: Estilo do nome, indicando se o nome é informal ou formal.
+
+          - name: PERSONTYPE
+            description: Tipo da pessoa, podendo ser um cliente, um funcionário, etc.
+
+          - name: ROWGUID
+            description: Identificador global único da pessoa, utilizado em integrações.
+
+          - name: SUFFIX
+            description: Sufixo do nome, como Jr., Sr., etc.
+
+          - name: TITLE
+            description: Título da pessoa, como Dr., Sr., Sra., etc.
+
+      - name: PERSONPHONE
+        description: Contém informações sobre os números de telefone associados a pessoas.
+
+        columns:
+          - name: BUSINESSENTITYID
+            description: Identificador único da pessoa associada ao número de telefone.
+            tests:
+              - not_null
+              - unique
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do número de telefone.
+
+          - name: PHONENUMBER
+            description: Número de telefone da pessoa, incluindo o código de área.
+
+          - name: PHONENUMBERTYPEID
+            description: Tipo de número de telefone, como celular, residencial, comercial, etc.
+
+      - name: PHONENUMBERTYPE
+        description: Contém os tipos de números de telefone, como celular, residencial, comercial, etc.
+
+        columns:
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do tipo de número de telefone.
+
+          - name: NAME
+            description: Nome do tipo de número de telefone, como "Celular", "Residencial", "Comercial", etc.
+
+          - name: PHONENUMBERTYPEID
+            description: Identificador único do tipo de número de telefone.
+            tests:
+              - not_null
+              - unique
+
+      - name: PRODUCT
+        description: Contém informações sobre os produtos disponíveis na empresa, como preços, dimensões, características e status de fabricação.
+
+        columns:
+          - name: CLASS
+            description: Classificação do produto, usada para agrupamento de produtos.
+
+          - name: COLOR
+            description: Cor do produto.
+
+          - name: DAYSTOMANUFACTURE
+            description: Número de dias necessários para a fabricação do produto.
+
+          - name: DISCONTINUEDDATE
+            description: Data em que o produto foi descontinuado.
+
+          - name: FINISHEDGOODSFLAG
+            description: Indicador que diz se o produto é um bem acabado ou um produto intermediário.
+
+          - name: LISTPRICE
+            description: Preço de venda sugerido para o produto.
+
+          - name: MAKEFLAG
+            description: Indicador que mostra se o produto é fabricado internamente ou comprado de terceiros.
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do produto.
+
+          - name: NAME
+            description: Nome do produto.
+
+          - name: PRODUCTID
+            description: Identificador único do produto.
+            tests:
+              - not_null
+              - unique
+
+          - name: PRODUCTLINE
+            description: Linha de produtos à qual o produto pertence.
+
+          - name: PRODUCTMODELID
+            description: Identificador do modelo do produto, caso exista.
+
+          - name: PRODUCTNUMBER
+            description: Número de identificação único do produto.
+
+          - name: PRODUCTSUBCATEGORYID
+            description: Identificador da subcategoria à qual o produto pertence.
+
+          - name: REORDERPOINT
+            description: Ponto de reabastecimento, ou seja, quantidade mínima para realizar um novo pedido de estoque.
+
+          - name: ROWGUID
+            description: Identificador global único do produto, usado para integrações.
+
+          - name: SAFETYSTOCKLEVEL
+            description: Nível de estoque mínimo para garantir a disponibilidade do produto.
+
+          - name: SELLENDDATE
+            description: Data em que o produto deixa de ser vendido.
+
+          - name: SELLSTARTDATE
+            description: Data em que o produto começa a ser vendido.
+
+          - name: SIZE
+            description: Tamanho do produto, caso aplicável.
+
+          - name: SIZEUNITMEASURECODE
+            description: Código da unidade de medida do tamanho do produto.
+
+          - name: STANDARDCOST
+            description: Custo padrão de produção ou aquisição do produto.
+
+          - name: STYLE
+            description: Estilo do produto, como "moderno", "clássico", etc.
+
+          - name: WEIGHT
+            description: Peso do produto.
+
+          - name: WEIGHTUNITMEASURECODE
+            description: Código da unidade de medida do peso do produto.
+
+      - name: SALESORDERDETAIL
+        description: Contém os detalhes de cada pedido de venda, como quantidade, preço unitário, descontos e produto associado.
+
+        columns:
+          - name: CARRIERTRACKINGNUMBER
+            description: Número de rastreamento do transportador para o pedido de venda.
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do detalhe do pedido.
+
+          - name: ORDERQTY
+            description: Quantidade do produto no pedido de venda.
+
+          - name: PRODUCTID
+            description: Identificador do produto associado ao pedido.
+            tests:
+              - not_null
+
+          - name: ROWGUID
+            description: Identificador global único do detalhe do pedido, utilizado para integrações.
+
+          - name: SALESORDERDETAILID
+            description: Identificador único do detalhe do pedido de venda.
+            tests:
+              - not_null
+              - unique
+
+          - name: SALESORDERID
+            description: Identificador único do pedido de venda ao qual o detalhe pertence.
+            tests:
+              - not_null
+
+          - name: SPECIALOFFERID
+            description: Identificador da oferta especial aplicada ao pedido de venda, se houver.
+
+          - name: UNITPRICE
+            description: Preço unitário do produto no pedido de venda.
+
+          - name: UNITPRICEDISCOUNT
+            description: Desconto aplicado sobre o preço unitário do produto no pedido de venda.
+
+      - name: SALESORDERHEADER
+        description: Contém as informações principais sobre os pedidos de venda, como dados do cliente, valores, datas e status.
+
+        columns:
+          - name: ACCOUNTNUMBER
+            description: Número da conta do cliente associada ao pedido de venda.
+
+          - name: BILLTOADDRESSID
+            description: Identificador do endereço de cobrança associado ao pedido.
+            tests:
+              - not_null
+
+          - name: COMMENT
+            description: Comentários adicionais sobre o pedido de venda.
+
+          - name: CREDITCARDAPPROVALCODE
+            description: Código de aprovação do cartão de crédito utilizado para o pagamento do pedido.
+
+          - name: CREDITCARDID
+            description: Identificador do cartão de crédito utilizado para o pagamento.
+
+          - name: CURRENCYRATEID
+            description: Identificador da taxa de câmbio utilizada para o pedido, caso seja em moeda estrangeira.
+
+          - name: CUSTOMERID
+            description: Identificador único do cliente que fez o pedido.
+            tests:
+              - not_null
+
+          - name: DUEDATE
+            description: Data de vencimento do pedido de venda.
+
+          - name: FREIGHT
+            description: Custo de frete associado ao pedido de venda.
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do pedido de venda.
+
+          - name: ONLINEORDERFLAG
+            description: Indicador que indica se o pedido foi realizado online.
+
+          - name: ORDERDATE
+            description: Data em que o pedido foi feito.
+            tests:
+              - not_null
+
+          - name: PURCHASEORDERNUMBER
+            description: Número do pedido de compra associado ao pedido de venda.
+
+          - name: REVISIONNUMBER
+            description: Número de revisão do pedido, caso haja alterações no pedido original.
+
+          - name: ROWGUID
+            description: Identificador global único do pedido de venda, usado em integrações.
+
+          - name: SALESORDERID
+            description: Identificador único do pedido de venda.
+            tests:
+              - not_null
+              - unique
+
+          - name: SALESPERSONID
+            description: Identificador do vendedor associado ao pedido de venda.
+
+          - name: SHIPDATE
+            description: Data de envio do pedido de venda.
+
+          - name: SHIPMETHODID
+            description: Identificador do método de envio utilizado para o pedido de venda.
+
+          - name: SHIPTOADDRESSID
+            description: Identificador do endereço de entrega associado ao pedido.
+
+          - name: STATUS
+            description: Status do pedido de venda "Em andamento", "Finalizado", "Cancelado".
+
+          - name: SUBTOTAL
+            description: Valor subtotal do pedido de venda, antes de impostos e frete.
+
+          - name: TAXAMT
+            description: Valor total de impostos aplicados ao pedido de venda.
+
+          - name: TERRITORYID
+            description: Identificador da região de vendas associada ao pedido.
+
+          - name: TOTALDUE
+            description: Valor total devido no pedido de venda, incluindo frete e impostos.
+
+      - name: SALESORDERHEADERSALESREASON
+        description: Relaciona os motivos de vendas aos pedidos de venda, permitindo identificar a razão pela qual um pedido foi feito.
+
+        columns:
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do motivo de venda associado ao pedido.
+
+          - name: SALESORDERID
+            description: Identificador único do pedido de venda ao qual o motivo de venda está associado.
+            tests:
+              - not_null
+
+          - name: SALESREASONID
+            description: Identificador do motivo de venda, que descreve a razão pela qual o pedido foi realizado.
+            tests:
+              - not_null
+
+      - name: SALESREASON
+        description: Contém os motivos de vendas, que são usados para explicar o motivo pelo qual um pedido de venda foi realizado.
+
+        columns:
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do motivo de venda.
+
+          - name: NAME
+            description: Nome ou descrição do motivo de venda, como "Promoção", "Compra por necessidade", etc.
+
+          - name: REASONTYPE
+            description: Tipo do motivo de venda, categorizando o motivo como uma promoção, incentivo ou outro tipo de razão.
+
+          - name: SALESREASONID
+            description: Identificador único do motivo de venda.
+            tests:
+              - not_null
+              - unique
+ 
+      - name: STATEPROVINCE
+        description: Lista de estados ou províncias relacionados aos endereços e regiões de venda.
+
+        columns:
+          - name: COUNTRYREGIONCODE
+            description: Código do país ou região ao qual o estado ou província pertence.
+
+          - name: ISONLYSTATEPROVINCEFLAG
+            description: Indica se esse é o único estado ou província no país ou região.
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro do estado ou província.
+
+          - name: NAME
+            description: Nome do estado ou província.
+
+          - name: ROWGUID
+            description: Identificador único global do registro, usado para integração.
+
+          - name: STATEPROVINCECODE
+            description: Código da sigla do estado ou província, geralmente com duas letras.
+
+          - name: STATEPROVINCEID
+            description: Identificador único do estado ou província.
+            tests:
+              - not_null
+              - unique
+
+          - name: TERRITORYID
+            description: Identificador da região de vendas associada ao estado ou província.
+
+      - name: STORE
+        description: Contém informações sobre as lojas da empresa, incluindo dados demográficos e informações de vendas.
+
+        columns:
+          - name: BUSINESSENTITYID
+            description: Identificador único da loja.
+            tests:
+              - not_null
+              - unique
+
+          - name: DEMOGRAPHICS
+            description: Dados demográficos relacionados à loja, como a área de mercado ou a localização geográfica.
+
+          - name: MODIFIEDDATE
+            description: Data da última modificação no registro da loja.
+
+          - name: NAME
+            description: Nome da loja.
+
+          - name: ROWGUID
+            description: Identificador global único da loja, usado para integrações.
+
+          - name: SALESPERSONID
+            description: Identificador do vendedor responsável pela loja.
