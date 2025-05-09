@@ -1,8 +1,8 @@
 {{ config(materialized='table') }}
 
 select
-    AddressID as id_endereco
-    , CountryRegion as pais
-    , StateProvince as estado
-    , City as cidade
+    AddressID as IDEndereco
+    , CountryRegion as Pais
+    , StateProvince as Estado
+    , City as Cidade
 from {{ ref("int_geo") }}

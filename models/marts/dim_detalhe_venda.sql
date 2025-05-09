@@ -3,6 +3,6 @@
 select
     SalesOrderID as IDPedidoVenda
     , SalesReasonID as IDMotivoVenda
-    , SalesReason as motivo
-    , ReasonType as tipo_motivo
+    , SalesReason as Motivo
+    , ReasonType as TipoMotivo
 from {{ ref("int_sales_reason") }}

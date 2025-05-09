@@ -40,12 +40,12 @@ all_customers as (
 
 customers_crm as (
     select
-        CustomerID as id_cliente
-        , BusinessEntityType as tipo_negocio
-        , Name as nome_cliente
-        , PhoneNumber as telefone
-        , PhoneNumberType as tipo_telefone
-        , EmailAddress as email
+        CustomerID as IDCliente
+        , BusinessEntityType as TipoNegocio
+        , Name as NomeCliente
+        , PhoneNumber as Telefone
+        , PhoneNumberType as TipoTelefone
+        , EmailAddress as Email
     from all_customers as c
     left join int_phone as p on c.BusinessEntityID = p.BusinessEntityID
     left join src_email_address as a on c.BusinessEntityID = a.BusinessEntityID

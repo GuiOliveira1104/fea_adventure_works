@@ -1,9 +1,9 @@
 {{ config(materialized='table') }}
 
 select
-    ProductID id_produto
-    , Name as produto
-    , CLASS as classe
-    , LISTPRICE as preco_recomendado
-    , STANDARDCOST as custo
+    ProductID IDProduto
+    , Name as Produto
+    , CLASS as Classe
+    , LISTPRICE as PrecoRecomendado
+    , STANDARDCOST as Custo
 from {{ ref("src_product") }}
