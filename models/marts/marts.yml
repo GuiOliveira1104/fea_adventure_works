@@ -1,0 +1,143 @@
+version: 2
+
+sources:
+  - name: RAW_ADVENTURE_WORKS
+    database: FEA24_11
+    schema: DBT_GOLIVEIRA
+
+    tables:
+      - name: DIM_CALENDARIO
+        description: Tabela de datas com detalhamento por dia, mês e ano.
+        columns:
+          - name: Data
+            description: Data completa no formato YYYY-MM-DD.
+            tests:
+              - not_null
+              - unique
+
+          - name: Ano
+            description: Ano da data.
+          - name: Mes
+            description: Número do mês da data.
+          - name: Dia
+            description: Dia do mês.
+          - name: MesEscrito
+            description: Nome do mês em português.
+
+      - name: DIM_CARTAO_DE_CREDITO
+        description: Informações sobre os cartões de crédito utilizados nas vendas.
+        columns:
+          - name: IDCartao
+            description: Identificador único do cartão de crédito.
+            tests:
+              - not_null
+              - unique
+
+          - name: TipoCartao
+            description: Tipo do cartão de crédito (Visa, MasterCard, etc.).
+
+      - name: DIM_CLIENTES
+        description: Dados cadastrais dos clientes.
+        columns:
+          - name: IDCliente
+            description: Identificador único do cliente.
+            tests:
+              - not_null
+              - unique
+
+          - name: TipoNegocio
+            description: Tipo de negócio (Pessoa Física ou Jurídica).
+          - name: NomeCliente
+            description: Nome completo ou razão social do cliente.
+          - name: Telefone
+            description: Número de telefone do cliente.
+          - name: TipoTelefone
+            description: Tipo de telefone (comercial, residencial, celular, etc.).
+          - name: Email
+            description: Endereço de e-mail do cliente.
+
+      - name: DIM_DETALHE_VENDA
+        description: Motivos relacionados às vendas.
+        columns:
+          - name: IDPedidoVenda
+            description: Identificador do pedido de venda relacionado ao motivo.
+          - name: IDMotivoVenda
+            description: Identificador do motivo da venda.
+          - name: Motivo
+            description: Descrição do motivo da venda (Promotion, Review).
+          - name: TipoMotivo
+            description: Categoria do motivo da venda.
+
+      - name: DIM_GEO
+        description: Informações geográficas de entrega e cobrança.
+        columns:
+          - name: IDEndereco
+            description: Identificador único do endereço.
+            tests:
+              - unique
+              - not_null
+
+          - name: Pais
+            description: País do endereço.
+          - name: Estado
+            description: Estado ou província do endereço.
+          - name: Cidade
+            description: Cidade do endereço.
+
+      - name: DIM_PRODUTO
+        description: Informações dos produtos comercializados.
+        columns:
+          - name: IDProduto
+            description: Identificador único do produto.
+            tests:
+              - not_null
+              - unique
+
+          - name: Produto
+            description: Nome do produto.
+          - name: Classe
+            description: Categoria ou classe do produto.
+          - name: PrecoRecomendado
+            description: Preço de venda sugerido para o produto.
+          - name: Custo
+            description: Custo de aquisição ou produção do produto.
+
+      - name: FT_VENDAS
+        description: Fato de vendas com valores monetários, quantidades e relacionamentos com dimensões.
+        columns:
+          - name: IDDetalhePedido
+            description: Identificador único do item do pedido.
+            tests:
+              - not_null
+              - unique
+
+          - name: IDPedidoVenda
+            description: Identificador do pedido de venda.
+          - name: IDCliente
+            description: Identificador do cliente que realizou o pedido.
+          - name: IDCartaoCredito
+            description: Identificador do cartão de crédito utilizado na compra.
+          - name: IDEndereco
+            description: Identificador do endereço associado ao pedido.
+          - name: IDProduto
+            description: Identificador do produto vendido.
+          - name: DataPedido
+            description: Data em que o pedido foi realizado.
+          - name: DataEnvio
+            description: Data em que o pedido foi enviado.
+          - name: DataEntrega
+            description: Data estimada ou real de entrega do pedido.
+          - name: StatusPedido
+            description: Status atual do pedido (processado, enviado, cancelado).
+          - name: PrecoUnitario
+            description: Preço original por unidade do produto.
+          - name: DescontoPrecoUnitario
+            description: Valor do desconto aplicado por unidade do produto.
+          - name: QuantidadePedido
+            description: Quantidade total de unidades compradas no item do pedido.
+          - name: ValorTotal
+            description: Valor bruto da venda calculado como (Preço Unitário x Quantidade Vendida), sem considerar descontos.
+          - name: DescontoTotal
+            description: Valor total de desconto aplicado, calculado como (Desconto por Unidade x Quantidade Vendida).
+          - name: ValorLiquido
+            description: Valor líquido da venda após descontos, calculado como ((Preço Unitário - Desconto por Unidade) x Quantidade Vendida).
