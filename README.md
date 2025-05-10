@@ -20,7 +20,8 @@ Este projeto visa a construção de um Data Warehouse (DW) moderno, utilizando S
 
 ## 3. Diagrama Conceitual
 
-Disponibilizado em PDF com mapeamento das tabelas de fato e dimensões criadas, suas chaves primárias e relacionamentos. \[Inserir link ou local do arquivo PDF]
+Disponibilizado em PDF com mapeamento das tabelas de fato e dimensões criadas, suas chaves primárias e relacionamentos. 
+https://drive.google.com/file/d/1BQG8Vsc0iTqLMOZFki2bNzOokgq4-P2q/view?usp=sharing
 
 ## 4. Transformação com dbt
 
@@ -61,7 +62,7 @@ WHERE (
 
 ### 4.3 Repositório Git
 
-Link para o repositório: \[inserir link do GitHub com o projeto dbt]
+Link para o repositório: https://github.com/GuiOliveira1104/fea_adventure_works
 
 ## 5. Painel BI - Power BI
 
@@ -82,7 +83,3 @@ Link para o repositório: \[inserir link do GitHub com o projeto dbt]
 ## 6. Conclusão
 
 Projeto completo com pipeline moderno, testes automatizados, versão controlada com Git e visualizações interativas. Alinhado ao Modern Data Stack e pronto para ser escalado.
-
----
-
-Se precisar, posso gerar também uma versão em PDF desta documentação.
